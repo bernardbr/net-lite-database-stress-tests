@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Application.Api.Models;
 using LiteDB;
@@ -10,7 +9,9 @@ namespace Application.Api.Repositories.Impl
     {
         public void Delete(Person person)
         {
-            throw new NotImplementedException();
+            using var db = new LiteDatabase(@"litedb.db");
+            var collection = db.GetCollection<Person>("people");
+            collection.Delete(person.Id);
         }
 
         public Person Get(int id)

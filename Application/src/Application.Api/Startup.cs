@@ -39,7 +39,8 @@ namespace Application.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddScoped<IPersonRepository, PersonLiteDbRepository>()
+                //.AddScoped<IPersonRepository, PersonLiteDbRepository>()
+                .AddScoped<IPersonRepository, PersonSqLiteRepository>()
                 .AddControllers();
         }
     }
