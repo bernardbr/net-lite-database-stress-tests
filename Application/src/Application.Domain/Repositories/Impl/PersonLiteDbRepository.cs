@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Application.Api.Models;
+using Application.Domain.Models;
 using LiteDB;
 
-namespace Application.Api.Repositories.Impl
+namespace Application.Domain.Repositories.Impl
 {
     public class PersonLiteDbRepository : IPersonRepository
     {

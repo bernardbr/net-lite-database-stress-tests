@@ -1,5 +1,5 @@
-﻿using Application.Api.Models;
-using Application.Api.Repositories;
+﻿using Application.Domain.Models;
+using Application.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Application.Api.Controllers

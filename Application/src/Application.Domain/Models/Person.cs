@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Application.Api.Models
+namespace Application.Domain.Models
 {
     public class Person
     {

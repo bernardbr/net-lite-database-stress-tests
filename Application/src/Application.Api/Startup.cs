@@ -1,5 +1,5 @@
-﻿using Application.Api.Repositories;
-using Application.Api.Repositories.Impl;
+﻿using Application.Domain.Repositories;
+using Application.Domain.Repositories.Impl;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

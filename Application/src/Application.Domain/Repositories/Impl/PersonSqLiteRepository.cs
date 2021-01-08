@@ -2,10 +2,10 @@
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
-using Application.Api.Models;
+using Application.Domain.Models;
 using Dapper;
 
-namespace Application.Api.Repositories.Impl
+namespace Application.Domain.Repositories.Impl
 {
     public class PersonSqLiteRepository : IPersonRepository
     {
@@ -29,7 +29,7 @@ namespace Application.Api.Repositories.Impl
         public Person Get(int id)
         {
             using var db = new SQLiteConnection(@"Data Source=sqlite.db;Version=3;");
-            return db.QueryFirst<Person>("SELECT id as Id, name as Name, height as Height, birthDate as BirthDate FROM people WHERE id = @id", new { id });
+            return db.QueryFirstOrDefault<Person>("SELECT id as Id, name as Name, height as Height, birthDate as BirthDate FROM people WHERE id = @id", new { id });
         }
 
         public IEnumerable<Person> Get()

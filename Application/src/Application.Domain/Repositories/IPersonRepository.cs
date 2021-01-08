@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Application.Api.Models;
+using Application.Domain.Models;
 
-namespace Application.Api.Repositories
+namespace Application.Domain.Repositories
 {
     public interface IPersonRepository
     {
