@@ -24,22 +24,24 @@ namespace Application.Domain.Repositories.Impl
 
         public void Delete(Person person)
         {
-            Log.Logger.Information("Delete SqLite: {Id}", person.Id);
+            Log.Logger.Information("Delete SqLite: {@person} {@event}", person,
+                new { type = "delete", source = "sqlite" });
             try
             {
                 using var db = new SQLiteConnection(@"Data Source=sqlite.db;Version=3;");
-                db.Execute("DELETE FROM people WHERE id = @id", new { id = person.Id });
+                db.Execute("DELETE FROM people WHERE id = @id", new { id = person?.Id });
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e, "Delete LqLite");
+                Log.Logger.Error(e, "Delete LqLite {@event}", new { type = "delete", source = "sqlite", parameters = person });
                 throw;
             }
         }
 
         public Person Get(int id)
         {
-            Log.Logger.Information("Get SqLite: {id}", id);
+            Log.Logger.Information("Get SqLite: {id} {@event}", id,
+                new { type = "get", source = "sqlite" });
             try
             {
                 using var db = new SQLiteConnection(@"Data Source=sqlite.db;Version=3;");
@@ -47,14 +49,15 @@ namespace Application.Domain.Repositories.Impl
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e, "Get SqLite");
+                Log.Logger.Error(e, "Get SqLite {@event}",
+                    new { type = "get", source = "sqlite", parameters = id });
                 throw;
             }
         }
 
         public IEnumerable<Person> GetAll()
         {
-            Log.Logger.Information("GetAll SqLite");
+            Log.Logger.Information("GetAll SqLite {@event}", new { type = "getAll", source = "sqlite" });
             try
             {
                 using var db = new SQLiteConnection(@"Data Source=sqlite.db;Version=3;");
@@ -62,14 +65,14 @@ namespace Application.Domain.Repositories.Impl
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e, "GetAll SqLite");
+                Log.Logger.Error(e, "GetAll SqLite {@event}", new { type = "getAll", source = "sqlite" });
                 throw;
             }
         }
 
         public void Post(Person person)
         {
-            Log.Logger.Information("Post SqLite: {@person}", person);
+            Log.Logger.Information("Post SqLite: {@person} {@event}", person, new { type = "post", source = "sqlite" });
             try
             {
                 using var db = new SQLiteConnection(@"Data Source=sqlite.db;Version=3;");
@@ -79,14 +82,14 @@ namespace Application.Domain.Repositories.Impl
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e, "Post SqLite");
+                Log.Logger.Error(e, "Post SqLite {@event}", new { type = "post", source = "sqlite", parameters = person });
                 throw;
             }
         }
 
         public void Put(Person person)
         {
-            Log.Logger.Information("Put SqLite: {@person}", person);
+            Log.Logger.Information("Put SqLite: {@person} {@event}", person, new { type = "put", source = "sqlite" });
             try
             {
                 using var db = new SQLiteConnection(@"Data Source=sqlite.db;Version=3;");
@@ -96,7 +99,7 @@ namespace Application.Domain.Repositories.Impl
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e, "Put SqLite");
+                Log.Logger.Error(e, "Put SqLite {@event}", new { type = "put", source = "sqlite", parameters = person });
                 throw;
             }
         }
