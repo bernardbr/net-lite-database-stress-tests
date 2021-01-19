@@ -32,6 +32,7 @@ namespace Application.Api.Controllers
         [HttpPut("{id}")]
         public ActionResult Edit([FromRoute] int id, [FromBody] Person person)
         {
+            person.Id = id;
             _repository.Put(person);
             return Ok(person);
         }
@@ -46,7 +47,7 @@ namespace Application.Api.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var people = _repository.Get();
+            var people = _repository.GetAll();
             return Ok(people);
         }
     }

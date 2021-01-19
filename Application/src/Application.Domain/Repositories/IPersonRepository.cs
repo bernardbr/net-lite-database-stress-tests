@@ -9,7 +9,7 @@ namespace Application.Domain.Repositories
 
         Person Get(int id);
 
-        IEnumerable<Person> Get();
+        IEnumerable<Person> GetAll();
 
         void Post(Person person);
 

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace Application.Api
 {
@@ -13,6 +14,10 @@ namespace Application.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Seq("http://localhost:32784/")
+                .CreateLogger();
         }
 
         public IConfiguration Configuration { get; }

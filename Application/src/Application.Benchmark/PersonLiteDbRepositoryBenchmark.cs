@@ -4,6 +4,7 @@ using Application.Domain.Models;
 using Application.Domain.Repositories;
 using Application.Domain.Repositories.Impl;
 using BenchmarkDotNet.Attributes;
+using Serilog;
 
 namespace Application.Benchmark
 {
@@ -22,14 +23,14 @@ namespace Application.Benchmark
         [Benchmark]
         public void Delete()
         {
-            var person = _repository.Get().RandomElement();
+            var person = _repository.GetAll().RandomElement();
             _repository.Delete(person);
         }
 
         [Benchmark]
         public void Edit()
         {
-            var person = _repository.Get().RandomElement();
+            var person = _repository.GetAll().RandomElement();
             _personFaker.Populate(person);
             _repository.Put(person);
         }
@@ -37,12 +38,16 @@ namespace Application.Benchmark
         [Benchmark]
         public void GetAll()
         {
-            _repository.Get();
+            _repository.GetAll();
         }
 
         [GlobalSetup]
         public void Setup()
         {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Seq("http://localhost:32784/")
+                .CreateLogger();
+
             _repository = new PersonLiteDbRepository();
             _personFaker = new Bogus.Faker<Person>()
                 .RuleFor(p => p.BirthDate, b => b.Date.Past(18))
