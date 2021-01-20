@@ -9,9 +9,11 @@ namespace Application.Domain.Repositories.Impl
 {
     public class PersonLiteDbRepository : IPersonRepository
     {
+        private const string CONNECTION_STRING = @"Filename=litedb.db;Connection=shared";
+
         static PersonLiteDbRepository()
         {
-            using var db = new LiteDatabase(@"litedb.db");
+            using var db = new LiteDatabase(CONNECTION_STRING);
             var collection = db.GetCollection<Person>("people");
             collection.EnsureIndex(x => x.Id, true);
         }
@@ -21,7 +23,7 @@ namespace Application.Domain.Repositories.Impl
             Log.Logger.Information("Delete LiteDb: {Id} {@event}", person.Id, new { type = "delete", source = "litedb" });
             try
             {
-                using var db = new LiteDatabase(@"litedb.db");
+                using var db = new LiteDatabase(CONNECTION_STRING);
                 var collection = db.GetCollection<Person>("people");
                 collection.Delete(person.Id);
             }
@@ -37,7 +39,7 @@ namespace Application.Domain.Repositories.Impl
             Log.Logger.Information("Get LiteDb: {id} {@event}", id, new { type = "get", source = "litedb" });
             try
             {
-                using var db = new LiteDatabase(@"litedb.db");
+                using var db = new LiteDatabase(CONNECTION_STRING);
                 var collection = db.GetCollection<Person>("people");
                 return collection.FindById(id);
             }
@@ -53,7 +55,7 @@ namespace Application.Domain.Repositories.Impl
             Log.Logger.Information("GetAll LiteDb {@event}", new { type = "getAll", source = "litedb" });
             try
             {
-                using var db = new LiteDatabase(@"litedb.db");
+                using var db = new LiteDatabase(CONNECTION_STRING);
                 var collection = db.GetCollection<Person>("people");
                 return collection.FindAll().ToList();
             }
@@ -69,7 +71,7 @@ namespace Application.Domain.Repositories.Impl
             Log.Logger.Information("Post LiteDb: {@person} {@event}", person, new { type = "Post", source = "litedb" });
             try
             {
-                using var db = new LiteDatabase(@"litedb.db");
+                using var db = new LiteDatabase(CONNECTION_STRING);
                 var collection = db.GetCollection<Person>("people");
                 collection.Insert(person);
             }
@@ -85,7 +87,7 @@ namespace Application.Domain.Repositories.Impl
             Log.Logger.Information("Put LiteDb: {@person} {@event}", person, new { type = "get", source = "litedb" });
             try
             {
-                using var db = new LiteDatabase(@"litedb.db");
+                using var db = new LiteDatabase(CONNECTION_STRING);
                 var collection = db.GetCollection<Person>("people");
                 collection.Update(person);
             }
