@@ -58,8 +58,8 @@ namespace Application.Benchmark
                     Console.WriteLine("Person Created! Name={0}", p.Name);
                 });
 
-            // Creates the 1k first elements
-            for (var i = 0; i < 1000; i++)
+            // Creates the 100 first elements
+            for (var i = 0; i < 100; i++)
             {
                 Create();
             }
